@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: dream-x-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: dream-x-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-init-db.d
+    ports:
+      - "5432:5432"
+    networks:
+      - dream-x-test-app
+
+volumes:
+  postgresql-data:
+
+networks:
+  dream-x-test-app:
+    name: dream-x-test-app-network
+    driver: bridge
